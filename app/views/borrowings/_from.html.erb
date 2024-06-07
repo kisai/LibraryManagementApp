@@ -1,0 +1,41 @@
+<%= form_with(model: borrowing, local: true) do |form| %>
+  <% if borrowing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(borrowing.errors.count, "error") %> prohibited this borrowing from being saved:</h2>
+      <ul>
+        <% borrowing.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :book_id %>
+    <%= form.collection_select :book_id, Book.all, :id, :title, include_blank: true, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :user_id %>
+    <%= form.collection_select :user_id, User.all, :id, :email, include_blank: true, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :borrowed_on %>
+    <%= form.date_select :borrowed_on, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :due_on %>
+    <%= form.date_select :due_on, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :returned_on %>
+    <%= form.date_select :returned_on, class: 'form-control', include_blank: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

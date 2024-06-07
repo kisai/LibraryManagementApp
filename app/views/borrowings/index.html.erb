@@ -1,0 +1,30 @@
+<h1>Borrowings</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Book</th>
+      <th>User</th>
+      <th>Borrowed On</th>
+      <th>Due On</th>
+      <th>Returned On</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @borrowings.each do |borrowing| %>
+      <tr>
+        <td><%= borrowing.book.title %></td>
+        <td><%= borrowing.user.email %></td>
+        <td><%= borrowing.borrowed_on %></td>
+        <td><%= borrowing.due_on %></td>
+        <td><%= borrowing.returned_on %></td>
+        <td>
+          <% if borrowing.returned_on.nil? && current_user.librarian? %>
+            <%= link_to 'Mark as Returned', borrowing_path(borrowing), method: :put, class: 'btn btn-primary' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
